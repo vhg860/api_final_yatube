@@ -1,22 +1,39 @@
 # Приложение API для проекта YaTube
+API сервис для соц. сети Yatube.
+В API YATUBE можно получить или создать запись, комментарий, группу.
 ***
-
+### ♦Стек технологий:
+* Python 3.9
+* Django REST Framework (DRF)
+* REST API
+* Djoser
+***
 ### Как запустить проект:
-***
-### Клонировать репозиторий и перейти в него в командной строке:
+
+#### Клонировать репозиторий и перейти в него в командной строке:
 >     git@github.com:vhg860/api_final_yatube.git
 >     cd api_final_yatube
-***
-### Cоздать и активировать виртуальное окружение:
+
+#### Cоздать и активировать виртуальное окружение:
 >     python3 -m venv env
 >     source env/bin/activate
-***
-### Установить зависимости из файла requirements.txt:
+
+#### Установить зависимости из файла requirements.txt:
 >     python3 -m pip install --upgrade pip
 >     pip install -r requirements.txt
-***
-### Выполнить миграции:
+
+#### Выполнить миграции:
 >     python3 manage.py migrate
-***
-### Запустить проект:
+
+#### Запустить проект:
 >     python3 manage.py runserver
+***
+### Примеры запросов:
+http://127.0.0.1:8000/api/v1/users/
+
+http://127.0.0.1:8000/api/v1/posts/
+
+http://127.0.0.1:8000/api/v1/posts/1/
+***
+###### Автор:
+Истомин Дмитрий
