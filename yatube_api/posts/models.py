@@ -24,22 +24,25 @@ class Post(models.Model):
         blank=True,
         null=True,
         related_name='posts',
-        verbose_name='группа статей')
+        verbose_name='группа статей'
+    )
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name='posts')
+        related_name='posts'
+    )
     image = models.ImageField(
         upload_to='posts/',
         null=True,
         blank=True,
-        verbose_name='картинка статьи')
-
-    def __str__(self):
-        return self.text[:LIMIT_TEXT]
+        verbose_name='картинка статьи'
+    )
 
     class Meta:
         ordering = ('pub_date',)
+
+    def __str__(self):
+        return self.text[:LIMIT_TEXT]
 
 
 class Comment(models.Model):
@@ -47,19 +50,23 @@ class Comment(models.Model):
         User,
         on_delete=models.CASCADE,
         related_name='comments',
-        verbose_name='Имя автора')
+        verbose_name='Имя автора'
+    )
     post = models.ForeignKey(
         Post,
         on_delete=models.CASCADE,
         related_name='comments',
-        verbose_name='Имя поста')
+        verbose_name='Имя поста'
+    )
     text = models.TextField(
         max_length=300,
-        verbose_name='Текст комментария')
+        verbose_name='Текст комментария'
+    )
     created = models.DateTimeField(
         'Дата добавления',
         auto_now_add=True,
-        db_index=True)
+        db_index=True
+    )
 
     def __str__(self):
         return f'{self.author} оставил комментарий {self.text}'[:LIMIT_TEXT]
@@ -70,9 +77,22 @@ class Follow(models.Model):
         User,
         on_delete=models.CASCADE,
         related_name='follower',
-        verbose_name='Укажите подписчика')
+        verbose_name='Укажите подписчика'
+    )
     following = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         related_name='following',
-        verbose_name='На кого подписываемся')
+        verbose_name='На кого подписываемся'
+    )
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['user', 'following'],
+                name='unique_user_following'
+            )
+        ]
+
+    def __str__(self):
+        return f'{self.user} подписан на {self.following}'[:LIMIT_TEXT]
